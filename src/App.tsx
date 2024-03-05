@@ -1,4 +1,4 @@
-import LearningPath from "./components/LearningPath.tsx";
+import Badge from "./components/Badge.tsx";
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
         transform: "translate(-50%, -50%)",
       }}
     >
-      <LearningPath />
+      <Badge userName="Test user" achievement="Test achievement" imageUrl="https://uxwing.com/wp-content/themes/uxwing/download/sport-and-awards/achievement-award-medal-icon.svg" />
     </div>
   );
 }
