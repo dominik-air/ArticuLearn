@@ -11,6 +11,7 @@ django = "^5.0.3"
 djangorestframework = "^3.14.0"
 langchain = "^0.1.12"
 langchain-openai = "^0.0.8"
+psycopg = "^3.1.18"
 
 
 [tool.poetry.group.dev.dependencies]
