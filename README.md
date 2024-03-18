@@ -13,5 +13,8 @@ There's also an option to stick to the OpenAI API's free tier if anything else f
 - Learning Path - a collection of lessons and practice sessions in a specific order.
 - Badges - users receive a badge after completing a part of a learning path. Keeps track of the user's progress in a gamified way.
 
+## Resources:
+- [RAG](https://chariotsolutions.com/blog/post/from-rags-to-riches-adding-context-to-your-llm/)
+
 ## Acknowledgement
 Project implemented as part of the [100commitow](https://100commitow.pl) competition.
