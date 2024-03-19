@@ -15,6 +15,7 @@ There's also an option to stick to the OpenAI API's free tier if anything else f
 
 ## Resources:
 - [RAG](https://chariotsolutions.com/blog/post/from-rags-to-riches-adding-context-to-your-llm/)
+- [RAG for LLMs](https://www.promptingguide.ai/research/rag)
 
 ## Acknowledgement
 Project implemented as part of the [100commitow](https://100commitow.pl) competition.
