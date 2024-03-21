@@ -35,7 +35,6 @@ const ActivityNode: React.FC<ActivityNodeProps> = ({ activity, onSelect }) => {
     <Box
       sx={nodeStyle}
       onMouseEnter={() => onSelect(activity.id)}
-      onMouseLeave={() => onSelect(null)}
     ></Box>
   );
 };

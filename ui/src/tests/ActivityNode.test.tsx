@@ -24,12 +24,4 @@ describe('ActivityNode', () => {
     fireEvent.mouseEnter(node);
     expect(mockOnSelect).toHaveBeenCalledWith(activity.id);
   });
-
-  it('calls onSelect with null on mouse leave', () => {
-    const activity = { id: '2', name: 'Activity 2', type: 'quiz', status: 'inactive' };
-    render(<ActivityNode activity={activity} onSelect={mockOnSelect} />);
-    const node = screen.getByTestId('activity-node');
-    fireEvent.mouseLeave(node);
-    expect(mockOnSelect).toHaveBeenCalledWith(null);
-  });
 });
