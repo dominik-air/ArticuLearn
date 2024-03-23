@@ -31,12 +31,7 @@ const ActivityNode: React.FC<ActivityNodeProps> = ({ activity, onSelect }) => {
     margin: "0 20px",
   };
 
-  return (
-    <Box
-      sx={nodeStyle}
-      onMouseEnter={() => onSelect(activity.id)}
-    ></Box>
-  );
+  return <Box sx={nodeStyle} onMouseEnter={() => onSelect(activity.id)}></Box>;
 };
 
 export default ActivityNode;
