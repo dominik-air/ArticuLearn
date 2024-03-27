@@ -5,27 +5,33 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import ArticleIcon from "@mui/icons-material/Article";
 import QuizIcon from "@mui/icons-material/Quiz";
 
+enum ActivityType {
+  Exercise = "exercise",
+  Video = "video",
+  Article = "article",
+  Quiz = "quiz",
+}
+
 interface ActivityProps {
   name: string;
   description: string;
-  type: "exercise" | "video" | "article" | "quiz";
+  type: ActivityType;
   started: boolean;
   onStart: () => void;
 }
 
-const getIcon = (type: "exercise" | "video" | "article" | "quiz") => {
-  switch (type) {
-    case "exercise":
-      return FitnessCenterIcon;
-    case "video":
-      return YouTubeIcon;
-    case "article":
-      return ArticleIcon;
-    case "quiz":
-      return QuizIcon;
-    default:
-      return null;
-  }
+const iconMap = {
+  [ActivityType.Exercise]: FitnessCenterIcon,
+  [ActivityType.Video]: YouTubeIcon,
+  [ActivityType.Article]: ArticleIcon,
+  [ActivityType.Quiz]: QuizIcon,
+};
+
+const ActivityIcon = ({ type }: { type: ActivityType }) => {
+  const IconComponent = iconMap[type];
+  return IconComponent ? (
+    <IconComponent sx={{ fontSize: 40 }} aria-label={type} />
+  ) : null;
 };
 
 export default function Activity({
@@ -35,8 +41,6 @@ export default function Activity({
   started,
   onStart,
 }: ActivityProps) {
-  const IconComponent = getIcon(type);
-
   return (
     <Container
       component={Paper}
@@ -52,7 +56,7 @@ export default function Activity({
     >
       <Grid container spacing={2} justifyContent="center" alignItems="center">
         <Grid item>
-          {IconComponent ? <IconComponent sx={{ fontSize: 40 }} /> : null}
+          <ActivityIcon type={type} />
         </Grid>
         <Grid item>
           <Typography variant="h4" sx={{ textAlign: "center", ml: 2 }}>
