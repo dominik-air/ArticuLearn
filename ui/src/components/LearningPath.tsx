@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { Container, Grid } from "@mui/material";
 import ActivityNode from "./ActivityNode";
-import Activity from "./Activity";
+import Activity, { ActivityType } from "./Activity";
 
 interface LearningPathActivity {
   id: string;
   name: string;
-  type: "exercise" | "video" | "article" | "quiz";
+  type: ActivityType;
   status: "done" | "current" | "inactive";
 }
 
 const activities: LearningPathActivity[] = [
-  { id: "1", name: "Introduction", type: "video", status: "done" },
-  { id: "2", name: "Exercise 1", type: "exercise", status: "current" },
-  { id: "3", name: "Reading Material", type: "article", status: "inactive" },
+  { id: "1", name: "Introduction", type: ActivityType.Video, status: "done" },
+  { id: "2", name: "Exercise 1", type: ActivityType.Exercise, status: "current" },
+  { id: "3", name: "Reading Material", type: ActivityType.Article, status: "inactive" },
 ];
 
 const LearningPath: React.FC = () => {

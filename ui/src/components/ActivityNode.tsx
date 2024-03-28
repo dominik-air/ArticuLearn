@@ -1,10 +1,11 @@
 import React from "react";
 import { Box } from "@mui/material";
+import { ActivityType } from "./Activity";
 
 interface LearningPathActivity {
   id: string;
   name: string;
-  type: "exercise" | "video" | "article" | "quiz";
+  type: ActivityType;
   status: "done" | "current" | "inactive";
 }
 

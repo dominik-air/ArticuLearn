@@ -5,7 +5,7 @@ import YouTubeIcon from "@mui/icons-material/YouTube";
 import ArticleIcon from "@mui/icons-material/Article";
 import QuizIcon from "@mui/icons-material/Quiz";
 
-enum ActivityType {
+export enum ActivityType {
   Exercise = "exercise",
   Video = "video",
   Article = "article",
@@ -33,6 +33,7 @@ const ActivityIcon = ({ type }: { type: ActivityType }) => {
     <IconComponent sx={{ fontSize: 40 }} aria-label={type} />
   ) : null;
 };
+
 
 export default function Activity({
   name,
