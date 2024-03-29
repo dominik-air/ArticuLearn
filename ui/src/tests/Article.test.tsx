@@ -1,14 +1,14 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Article from "../components/Article";
+import Article, { ContentType } from "../components/Article";
 
 describe("Article Component", () => {
   test("renders a pure text article", () => {
     render(
       <Article
         title="test article"
-        content={[{ type: "text", text: "this is a test" }]}
+        content={[{ type: ContentType.Text, text: "this is a test" }]}
         tags={["tag1", "tag2", "tag3", "tag4"]}
       ></Article>,
     );
@@ -21,7 +21,7 @@ describe("Article Component", () => {
     render(
       <Article
         title="Image article"
-        content={[{ type: "image", imageURL: "test" }]}
+        content={[{ type: ContentType.Image, imageURL: "test" }]}
         tags={["tag1"]}
       />,
     );
@@ -33,7 +33,7 @@ describe("Article Component", () => {
 
   test("renders an article with table", () => {
     const tableContent = {
-      type: "table",
+      type: ContentType.Table,
       table: {
         headers: ["Header1", "Header2"],
         data: [
@@ -59,10 +59,10 @@ describe("Article Component", () => {
 
   test("renders an article with text, image, and table", () => {
     const combinedContent = [
-      { type: "text", text: "Article Introduction" },
-      { type: "image", imageURL: "test.jpg" },
+      { type: ContentType.Text, text: "Article Introduction" },
+      { type: ContentType.Image, imageURL: "test.jpg" },
       {
-        type: "table",
+        type: ContentType.Table,
         table: {
           headers: ["Header1", "Header2"],
           data: [

@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Activity from "../components/Activity";
+import Activity, { ActivityType } from "../components/Activity";
 
 describe("Activity Component", () => {
   const mockOnStart = jest.fn();
@@ -15,7 +15,7 @@ describe("Activity Component", () => {
       <Activity
         name="Run"
         description="A nice run in the park"
-        type="exercise"
+        type={ActivityType.Exercise}
         started={false}
         onStart={mockOnStart}
       />,
@@ -31,7 +31,7 @@ describe("Activity Component", () => {
       <Activity
         name="Math Quiz"
         description="Test your math skills"
-        type="quiz"
+        type={ActivityType.Quiz}
         started={true}
         onStart={mockOnStart}
       />,
@@ -49,7 +49,7 @@ describe("Activity Component", () => {
       <Activity
         name="Read Article"
         description="Learn about history"
-        type="article"
+        type={ActivityType.Article}
         started={false}
         onStart={mockOnStart}
       />,
