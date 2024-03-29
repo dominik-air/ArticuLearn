@@ -1,13 +1,6 @@
 import React from "react";
 import { Box } from "@mui/material";
-import { ActivityType } from "./Activity";
-
-interface LearningPathActivity {
-  id: string;
-  name: string;
-  type: ActivityType;
-  status: "done" | "current" | "inactive";
-}
+import { LearningPathActivity, ActivityStatus } from "./LearningPath";
 
 interface ActivityNodeProps {
   activity: LearningPathActivity;
@@ -23,9 +16,9 @@ const ActivityNode: React.FC<ActivityNodeProps> = ({ activity, onSelect }) => {
     justifyContent: "center",
     alignItems: "center",
     backgroundColor:
-      activity.status === "done"
+      activity.status === ActivityStatus.Done
         ? "green"
-        : activity.status === "current"
+        : activity.status === ActivityStatus.Current
           ? "blue"
           : "grey",
     cursor: "pointer",

@@ -20,8 +20,14 @@ interface TableData {
   data: (string | number)[][];
 }
 
+export enum ContentType {
+  Text = "text",
+  Image = "image",
+  Table = "table",
+}
+
 interface Content {
-  type: "text" | "image" | "table";
+  type: ContentType;
   text?: string;
   imageURL?: string;
   table?: TableData;
@@ -36,13 +42,13 @@ interface ArticleProps {
 const Article: React.FC<ArticleProps> = ({ title, content, tags }) => {
   const renderContent = (contentItem: Content, index: number) => {
     switch (contentItem.type) {
-      case "text":
+      case ContentType.Text:
         return (
           <Typography key={index} variant="body1">
             {contentItem.text}
           </Typography>
         );
-      case "image":
+      case ContentType.Image:
         return contentItem.imageURL ? (
           <img
             key={index}
@@ -56,7 +62,7 @@ const Article: React.FC<ArticleProps> = ({ title, content, tags }) => {
             }}
           />
         ) : null;
-      case "table":
+      case ContentType.Table:
         return contentItem.table ? (
           <TableContainer component={Paper} sx={{ padding: 2, gap: 2 }}>
             <Table key={index}>

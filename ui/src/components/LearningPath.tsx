@@ -3,17 +3,38 @@ import { Container, Grid } from "@mui/material";
 import ActivityNode from "./ActivityNode";
 import Activity, { ActivityType } from "./Activity";
 
-interface LearningPathActivity {
+export enum ActivityStatus {
+  Done = "done",
+  Current = "current",
+  Inactive = "inactive",
+}
+
+export interface LearningPathActivity {
   id: string;
   name: string;
   type: ActivityType;
-  status: "done" | "current" | "inactive";
+  status: ActivityStatus;
 }
 
 const activities: LearningPathActivity[] = [
-  { id: "1", name: "Introduction", type: ActivityType.Video, status: "done" },
-  { id: "2", name: "Exercise 1", type: ActivityType.Exercise, status: "current" },
-  { id: "3", name: "Reading Material", type: ActivityType.Article, status: "inactive" },
+  {
+    id: "1",
+    name: "Introduction",
+    type: ActivityType.Video,
+    status: ActivityStatus.Done,
+  },
+  {
+    id: "2",
+    name: "Exercise 1",
+    type: ActivityType.Exercise,
+    status: ActivityStatus.Current,
+  },
+  {
+    id: "3",
+    name: "Reading Material",
+    type: ActivityType.Article,
+    status: ActivityStatus.Inactive,
+  },
 ];
 
 const LearningPath: React.FC = () => {

@@ -34,7 +34,6 @@ const ActivityIcon = ({ type }: { type: ActivityType }) => {
   ) : null;
 };
 
-
 export default function Activity({
   name,
   description,
