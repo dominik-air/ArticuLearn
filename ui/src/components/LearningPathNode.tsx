@@ -10,6 +10,7 @@ import {
 import StarIcon from "@mui/icons-material/Star";
 
 interface LearningPathNodeProps {
+  id: number;
   name: string;
   unlocked: boolean;
   current: boolean;
@@ -17,6 +18,7 @@ interface LearningPathNodeProps {
 }
 
 const LearningPathNode = ({
+  id,
   name,
   unlocked,
   current,
@@ -33,7 +35,7 @@ const LearningPathNode = ({
   }
 
   return (
-    <Box position="relative" display="inline-flex">
+    <Box position="relative" display="inline-flex" id={`node-${id}`}>
       <Container
         component={Paper}
         sx={{

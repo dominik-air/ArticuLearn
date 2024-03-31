@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import LearningPathNode from "./LearningPathNode";
-import { animateScroll as scroll, scroller } from "react-scroll";
 
 interface LearningPathNodeProps {
   id: number;
@@ -16,18 +15,14 @@ interface LearningPathProps {
 
 const LearningPath: React.FC<LearningPathProps> = ({ nodes }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const nodeRefs = useRef<(HTMLDivElement | null)[]>(new Array(nodes.length));
 
   useEffect(() => {
-    const containerId = "learning-path-container";
-
     const currentNodeIndex = nodes.findIndex((node) => node.current);
-    if (currentNodeIndex !== -1 && containerRef.current) {
-      scroller.scrollTo(`node-${nodes[currentNodeIndex].id}`, {
-        duration: 800,
-        delay: 0,
-        smooth: "easeInOutQuart",
-        containerId: containerId,
-        offset: -containerRef.current.offsetHeight / 2 + 60,
+    if (currentNodeIndex !== -1 && nodeRefs.current[currentNodeIndex]) {
+      nodeRefs.current[currentNodeIndex]?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
       });
     }
   }, [nodes]);
@@ -46,9 +41,10 @@ const LearningPath: React.FC<LearningPathProps> = ({ nodes }) => {
         padding: "20px 0",
       }}
     >
-      {nodes.map((node) => (
-        <div name={`node-${node.id}`} key={node.id}>
+      {nodes.map((node, index) => (
+        <div ref={(el) => (nodeRefs.current[index] = el)} key={node.id}>
           <LearningPathNode
+            id={node.id}
             name={node.name}
             unlocked={node.unlocked}
             current={node.current}
