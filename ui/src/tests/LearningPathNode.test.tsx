@@ -7,6 +7,7 @@ describe("LearningPathNode Component", () => {
   test("renders a node with Revisit button when unlocked and finished", () => {
     render(
       <LearningPathNode
+        id={123}
         name="test learning path node"
         unlocked={true}
         current={false}
@@ -23,6 +24,7 @@ describe("LearningPathNode Component", () => {
   test("renders a node with Start button when unlocked and current", () => {
     render(
       <LearningPathNode
+        id={123}
         name="test learning path node"
         unlocked={true}
         current={true}
@@ -39,6 +41,7 @@ describe("LearningPathNode Component", () => {
   test("renders a node with a disabled Locked button when not unlocked", () => {
     render(
       <LearningPathNode
+        id={123}
         name="test learning path node"
         unlocked={false}
         current={false}
