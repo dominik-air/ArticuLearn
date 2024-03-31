@@ -1,3 +1,4 @@
+import React from "react";
 import { Paper, Container, Typography, Button } from "@mui/material";
 
 interface LearningPathNodeProps {
@@ -32,6 +33,7 @@ const LearningPathNode = ({
     >
       <Typography>{name}</Typography>
       <Button
+        data-testid="button-learning-path-node"
         variant="contained"
         disabled={!unlocked}
         onClick={() => console.log(`clicked ${buttonAction}`)}
