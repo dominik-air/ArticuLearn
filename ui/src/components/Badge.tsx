@@ -17,11 +17,21 @@ interface BadgeProps {
 
 const Badge: React.FC<BadgeProps> = ({ userName, achievement, imageUrl }) => {
   return (
-    <Card sx={{ maxWidth: 345, textAlign: "center", margin: "20px auto" }}>
+    <Card
+      sx={{
+        width: 364,
+        height: 350,
+        textAlign: "center",
+        margin: "20px auto",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+      }}
+    >
       {imageUrl && (
         <CardMedia
           component="img"
-          height="140"
+          height="200"
           image={imageUrl}
           alt="Achievement"
         />

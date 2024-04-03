@@ -30,7 +30,7 @@ const createColorTransition = (
   }
 `;
 
-interface ActivityNodeProps {
+interface ActivityCard {
   id: number;
   name: string;
   unlocked: boolean;
@@ -38,13 +38,13 @@ interface ActivityNodeProps {
   finished: boolean;
 }
 
-const ActivityNode = ({
+const ActivityCard = ({
   id,
   name,
   unlocked,
   current,
   finished,
-}: ActivityNodeProps) => {
+}: ActivityCard) => {
   const theme = useTheme();
 
   const colorTransition = React.useMemo(
@@ -57,6 +57,7 @@ const ActivityNode = ({
   );
 
   const AnimatedPaper = styled(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     ({ current, ...otherProps }: AnimatedPaperProps) => (
       <Paper {...otherProps} />
     ),
@@ -117,4 +118,4 @@ const ActivityNode = ({
   );
 };
 
-export default ActivityNode;
+export default ActivityCard;

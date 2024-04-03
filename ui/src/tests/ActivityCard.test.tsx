@@ -1,12 +1,12 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import ActivityNode from "../components/ActivityNode";
+import ActivityCard from "../components/ActivityCard";
 
-describe("ActivityNode Component", () => {
+describe("ActivityCard Component", () => {
   test("renders a node with Revisit button when unlocked and finished", () => {
     render(
-      <ActivityNode
+      <ActivityCard
         id={123}
         name="test learning path node"
         unlocked={true}
@@ -23,7 +23,7 @@ describe("ActivityNode Component", () => {
 
   test("renders a node with Start button when unlocked and current", () => {
     render(
-      <ActivityNode
+      <ActivityCard
         id={123}
         name="test learning path node"
         unlocked={true}
@@ -40,7 +40,7 @@ describe("ActivityNode Component", () => {
 
   test("renders a node with a disabled Locked button when not unlocked", () => {
     render(
-      <ActivityNode
+      <ActivityCard
         id={123}
         name="test learning path node"
         unlocked={false}

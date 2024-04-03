@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
-import ActivityNode from "./ActivityNode";
+import ActivityCard from "./ActivityCard";
+import Badge from "./Badge";
 
-interface LearningPathNodeProps {
+interface ActivityCardProps {
   id: number;
   name: string;
   unlocked: boolean;
@@ -9,8 +10,31 @@ interface LearningPathNodeProps {
   finished: boolean;
 }
 
+interface BadgeProps {
+  userName: string;
+  achievement: string;
+  imageUrl?: string;
+}
+
+export enum NodeType {
+  Activity = "activity",
+  Badge = "badge",
+}
+
+export type ActivityNode = {
+  type: NodeType.Activity;
+  props: ActivityCardProps;
+};
+
+export type BadgeNode = {
+  type: NodeType.Badge;
+  props: BadgeProps;
+};
+
+type Node = ActivityNode | BadgeNode;
+
 interface LearningPathProps {
-  nodes: LearningPathNodeProps[];
+  nodes: Node[];
 }
 
 const LearningPath: React.FC<LearningPathProps> = ({ nodes }) => {
@@ -18,7 +42,9 @@ const LearningPath: React.FC<LearningPathProps> = ({ nodes }) => {
   const nodeRefs = useRef<(HTMLDivElement | null)[]>(new Array(nodes.length));
 
   useEffect(() => {
-    const currentNodeIndex = nodes.findIndex((node) => node.current);
+    const currentNodeIndex = nodes.findIndex(
+      (node) => node.type === NodeType.Activity && node.props.current,
+    );
     if (currentNodeIndex !== -1 && nodeRefs.current[currentNodeIndex]) {
       nodeRefs.current[currentNodeIndex]?.scrollIntoView({
         behavior: "smooth",
@@ -41,17 +67,27 @@ const LearningPath: React.FC<LearningPathProps> = ({ nodes }) => {
         padding: "20px 0",
       }}
     >
-      {nodes.map((node, index) => (
-        <div ref={(el) => (nodeRefs.current[index] = el)} key={node.id}>
-          <ActivityNode
-            id={node.id}
-            name={node.name}
-            unlocked={node.unlocked}
-            current={node.current}
-            finished={node.finished}
-          />
-        </div>
-      ))}
+      {nodes.map((node, index) =>
+        node.type === NodeType.Activity ? (
+          <div ref={(el) => (nodeRefs.current[index] = el)} key={node.props.id}>
+            <ActivityCard
+              id={node.props.id}
+              name={node.props.name}
+              unlocked={node.props.unlocked}
+              current={node.props.current}
+              finished={node.props.finished}
+            />
+          </div>
+        ) : (
+          <div key={node.props.achievement}>
+            <Badge
+              userName={node.props.userName}
+              achievement={node.props.achievement}
+              imageUrl={node.props.imageUrl}
+            ></Badge>
+          </div>
+        ),
+      )}
     </div>
   );
 };
