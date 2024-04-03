@@ -26,7 +26,6 @@ const App = () => {
     <ThemeProvider theme={useCustomTheme}>
       <LearningPath nodes={learningPathData}></LearningPath>
     </ThemeProvider>
-   
   );
 };
 

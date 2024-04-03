@@ -30,7 +30,7 @@ const createColorTransition = (
   }
 `;
 
-interface LearningPathNodeProps {
+interface ActivityNodeProps {
   id: number;
   name: string;
   unlocked: boolean;
@@ -38,13 +38,13 @@ interface LearningPathNodeProps {
   finished: boolean;
 }
 
-const LearningPathNode = ({
+const ActivityNode = ({
   id,
   name,
   unlocked,
   current,
   finished,
-}: LearningPathNodeProps) => {
+}: ActivityNodeProps) => {
   const theme = useTheme();
 
   const colorTransition = React.useMemo(
@@ -117,4 +117,4 @@ const LearningPathNode = ({
   );
 };
 
-export default LearningPathNode;
+export default ActivityNode;

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import LearningPathNode from "./LearningPathNode";
+import ActivityNode from "./ActivityNode";
 
 interface LearningPathNodeProps {
   id: number;
@@ -43,7 +43,7 @@ const LearningPath: React.FC<LearningPathProps> = ({ nodes }) => {
     >
       {nodes.map((node, index) => (
         <div ref={(el) => (nodeRefs.current[index] = el)} key={node.id}>
-          <LearningPathNode
+          <ActivityNode
             id={node.id}
             name={node.name}
             unlocked={node.unlocked}
