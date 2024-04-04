@@ -57,6 +57,7 @@ const LearningPath: React.FC<LearningPathProps> = ({ nodes }) => {
     <div
       ref={containerRef}
       id="learning-path-container"
+      data-testid="learning-path-container"
       style={{
         display: "flex",
         flexDirection: "column",
