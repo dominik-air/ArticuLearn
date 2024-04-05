@@ -6,6 +6,7 @@ import LearningPath, {
   ActivityNode,
   BadgeNode,
 } from "./components/LearningPath";
+import Quiz from "./components/Quiz";
 
 const learningPathData: (ActivityNode | BadgeNode)[] = [
   {
@@ -81,7 +82,12 @@ const learningPathData: (ActivityNode | BadgeNode)[] = [
 const App = () => {
   return (
     <ThemeProvider theme={useCustomTheme}>
-      <LearningPath nodes={learningPathData} />
+      {/* <LearningPath nodes={learningPathData} /> */}
+      <Quiz
+        question="Which of these is Gremin's favourite?"
+        answers={["Harnas", "Zubr", "Perla", "Lomza"]}
+        correctAnswerIndex={1}
+      ></Quiz>
     </ThemeProvider>
   );
 };
