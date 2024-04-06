@@ -44,14 +44,14 @@ const Article: React.FC<ArticleProps> = ({ title, content, tags }) => {
     switch (contentItem.type) {
       case ContentType.Text:
         return (
-          <Typography key={index} variant="body1">
+          <Typography key={`typography-${index}`} variant="body1">
             {contentItem.text}
           </Typography>
         );
       case ContentType.Image:
         return contentItem.imageURL ? (
           <img
-            key={index}
+            key={`image-${index}`}
             src={contentItem.imageURL}
             alt=""
             style={{
@@ -64,8 +64,12 @@ const Article: React.FC<ArticleProps> = ({ title, content, tags }) => {
         ) : null;
       case ContentType.Table:
         return contentItem.table ? (
-          <TableContainer component={Paper} sx={{ padding: 2, gap: 2 }}>
-            <Table key={index}>
+          <TableContainer
+            key={`table-${index}`}
+            component={Paper}
+            sx={{ padding: 2, gap: 2 }}
+          >
+            <Table>
               <TableHead>
                 <TableRow>
                   {contentItem.table.headers.map((header, idx) => (
@@ -108,7 +112,7 @@ const Article: React.FC<ArticleProps> = ({ title, content, tags }) => {
         <Divider sx={{ width: "100%", my: "2vh" }} />
         <Stack direction={"row"} spacing={2}>
           {tags.map((tag) => (
-            <Chip label={tag}></Chip>
+            <Chip key={tag} label={tag}></Chip>
           ))}
         </Stack>
       </Grid>

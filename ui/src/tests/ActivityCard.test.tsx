@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import ActivityCard, {ActivityType} from "../components/ActivityCard";
+import ActivityCard, { ActivityType } from "../components/ActivityCard";
 
 describe("ActivityCard Component", () => {
   test("renders a node with Revisit button when unlocked and finished", () => {
@@ -60,5 +60,4 @@ describe("ActivityCard Component", () => {
       "Locked",
     );
   });
-
 });
