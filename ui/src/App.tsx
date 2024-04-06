@@ -6,14 +6,16 @@ import LearningPath, {
   ActivityNode,
   BadgeNode,
 } from "./components/LearningPath";
-import Quiz from "./components/Quiz";
+import { ActivityType } from "./components/ActivityCard";
 
 const learningPathData: (ActivityNode | BadgeNode)[] = [
   {
     type: NodeType.Activity,
     props: {
       id: 1,
-      name: "Node 1",
+      name: "Article",
+      description: "Article about something interesting",
+      type: ActivityType.Article,
       unlocked: true,
       current: false,
       finished: true,
@@ -23,7 +25,9 @@ const learningPathData: (ActivityNode | BadgeNode)[] = [
     type: NodeType.Activity,
     props: {
       id: 2,
-      name: "Node 2",
+      name: "Exercise",
+      description: "Exercise about something interesting",
+      type: ActivityType.Exercise,
       unlocked: true,
       current: false,
       finished: true,
@@ -42,7 +46,9 @@ const learningPathData: (ActivityNode | BadgeNode)[] = [
     type: NodeType.Activity,
     props: {
       id: 3,
-      name: "Node 3",
+      name: "Quiz",
+      description: "Quiz about something interesting",
+      type: ActivityType.Quiz,
       unlocked: true,
       current: true,
       finished: false,
@@ -52,7 +58,9 @@ const learningPathData: (ActivityNode | BadgeNode)[] = [
     type: NodeType.Activity,
     props: {
       id: 4,
-      name: "Node 4",
+      name: "Video",
+      description: "Video about something interesting",
+      type: ActivityType.Video,
       unlocked: false,
       current: false,
       finished: false,
@@ -62,7 +70,9 @@ const learningPathData: (ActivityNode | BadgeNode)[] = [
     type: NodeType.Activity,
     props: {
       id: 5,
-      name: "Node 5",
+      name: "Exercise",
+      description: "Exercise about something interesting",
+      type: ActivityType.Exercise,
       unlocked: false,
       current: false,
       finished: false,
@@ -82,12 +92,7 @@ const learningPathData: (ActivityNode | BadgeNode)[] = [
 const App = () => {
   return (
     <ThemeProvider theme={useCustomTheme}>
-      {/* <LearningPath nodes={learningPathData} /> */}
-      <Quiz
-        question="Which of these is Gremin's favourite?"
-        answers={["Harnas", "Zubr", "Perla", "Lomza"]}
-        correctAnswerIndex={1}
-      ></Quiz>
+      <LearningPath nodes={learningPathData} />
     </ThemeProvider>
   );
 };

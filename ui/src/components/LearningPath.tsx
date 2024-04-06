@@ -1,10 +1,12 @@
 import React, { useEffect, useRef } from "react";
-import ActivityCard from "./ActivityCard";
+import ActivityCard, { ActivityType } from "./ActivityCard";
 import Badge from "./Badge";
 
 interface ActivityCardProps {
   id: number;
   name: string;
+  description: string;
+  type: ActivityType;
   unlocked: boolean;
   current: boolean;
   finished: boolean;
@@ -74,6 +76,8 @@ const LearningPath: React.FC<LearningPathProps> = ({ nodes }) => {
             <ActivityCard
               id={node.props.id}
               name={node.props.name}
+              description={node.props.description}
+              type={node.props.type}
               unlocked={node.props.unlocked}
               current={node.props.current}
               finished={node.props.finished}

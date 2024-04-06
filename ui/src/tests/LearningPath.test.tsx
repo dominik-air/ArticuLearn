@@ -2,6 +2,7 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import LearningPath, { NodeType } from "../components/LearningPath";
+import { ActivityType } from "../components/ActivityCard";
 
 describe("LearningPath", () => {
   const mockActivityNodes = [
@@ -10,6 +11,8 @@ describe("LearningPath", () => {
       props: {
         id: 1,
         name: "Activity One",
+        description: "test description",
+        type: ActivityType.Article,
         unlocked: true,
         current: false,
         finished: true,
@@ -20,6 +23,8 @@ describe("LearningPath", () => {
       props: {
         id: 2,
         name: "Activity Two",
+        description: "test description",
+        type: ActivityType.Article,
         unlocked: true,
         current: true,
         finished: false,
