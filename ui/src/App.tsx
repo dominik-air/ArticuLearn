@@ -7,6 +7,7 @@ import LearningPath, {
   BadgeNode,
 } from "./components/LearningPath";
 import { ActivityType } from "./components/ActivityCard";
+import NavigationBar from "./components/NavigationBar";
 
 const learningPathData: (ActivityNode | BadgeNode)[] = [
   {
@@ -92,6 +93,7 @@ const learningPathData: (ActivityNode | BadgeNode)[] = [
 const App = () => {
   return (
     <ThemeProvider theme={useCustomTheme}>
+      <NavigationBar></NavigationBar>
       <LearningPath nodes={learningPathData} />
     </ThemeProvider>
   );
