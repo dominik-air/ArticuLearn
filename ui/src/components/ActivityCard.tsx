@@ -30,7 +30,7 @@ const iconMap = {
   [ActivityType.Quiz]: QuizIcon,
 };
 
-const ActivityIcon = ({ type }: { type: ActivityType }) => {
+export const ActivityIcon = ({ type }: { type: ActivityType }) => {
   const IconComponent = iconMap[type];
   return IconComponent ? (
     <IconComponent sx={{ fontSize: 40 }} aria-label={type} />

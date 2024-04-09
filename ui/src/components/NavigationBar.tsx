@@ -1,24 +1,70 @@
-import React, { useState, MouseEvent } from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import Drawer from "@mui/material/Drawer";
+import {
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
+import RouteIcon from "@mui/icons-material/Route";
+import { ActivityIcon, ActivityType } from "./ActivityCard";
 
 const NavigationBar: React.FC = () => {
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const open = Boolean(anchorEl);
+  const [open, setOpen] = React.useState(false);
 
-  const handleMenu = (event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const ActivityOrder = [
+    ActivityType.Article,
+    ActivityType.Video,
+    ActivityType.Quiz,
+    ActivityType.Exercise,
+  ];
+
+  const DrawerList = (
+    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+      <List>
+        {["Learning Path", "Badges"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index === 0 ? (
+                  <RouteIcon sx={{ fontSize: 40 }} />
+                ) : (
+                  <EmojiEventsIcon sx={{ fontSize: 40 }} />
+                )}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {["Articles", "Videos", "Quizzes", "Exercises"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <ActivityIcon type={ActivityOrder[index]} />
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -30,27 +76,13 @@ const NavigationBar: React.FC = () => {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
-            onClick={handleMenu}
+            onClick={toggleDrawer(true)}
           >
             <MenuIcon />
           </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "bottom",
-              horizontal: "left",
-            }}
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "left",
-            }}
-            open={open}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={handleClose}>Option 1</MenuItem>
-            <MenuItem onClick={handleClose}>Option 2</MenuItem>
-          </Menu>
+          <Drawer open={open} onClose={toggleDrawer(false)}>
+            {DrawerList}
+          </Drawer>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             ArticuLearn
           </Typography>
