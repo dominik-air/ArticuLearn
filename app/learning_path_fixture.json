@@ -1,0 +1,45 @@
+[
+    {
+        "model": "learning_paths.LearningPath",
+        "pk": 1,
+        "fields": {
+            "name": "Full Stack Development Path"
+        }
+    },
+    {
+        "model": "learning_paths.ActivityNode",
+        "pk": 1,
+        "fields": {
+            "learning_path": 1,
+            "name": "Start with HTML",
+            "description": "Introduction to HTML.",
+            "type": "Article",
+            "unlocked": true,
+            "current": true,
+            "finished": false
+        }
+    },
+    {
+        "model": "learning_paths.ActivityNode",
+        "pk": 2,
+        "fields": {
+            "learning_path": 1,
+            "name": "Basics of CSS",
+            "description": "Learn CSS from scratch.",
+            "type": "Video",
+            "unlocked": false,
+            "current": false,
+            "finished": false
+        }
+    },
+    {
+        "model": "learning_paths.BadgeNode",
+        "pk": 1,
+        "fields": {
+            "learning_path": 1,
+            "user_name": "Jane Doe",
+            "achievement": "HTML Beginner",
+            "image_url": null
+        }
+    }
+]
