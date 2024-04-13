@@ -1,5 +1,10 @@
 from rest_framework import serializers
-from .models import LearningPath, ActivityNode, BadgeNode
+from .models import LearningPath, ActivityNode, BadgeNode, Node
+
+class NodeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Node
+        fields = ['id', 'learning_path', 'content_type', 'object_id']
 
 class ActivityNodeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,10 +24,10 @@ class LearningPathSerializer(serializers.ModelSerializer):
         fields = ['name', 'nodes']
 
     def get_nodes(self, obj):
-        result = []
-        for node in obj.nodes.all():
-            if isinstance(node, ActivityNode):
-                result.append(ActivityNodeSerializer(node).data)
-            elif isinstance(node, BadgeNode):
-                result.append(BadgeNodeSerializer(node).data)
-        return result
+        nodes = []
+        for node in obj.get_all_nodes():
+            if isinstance(node.content_object, ActivityNode):
+                nodes.append(ActivityNodeSerializer(node.content_object).data)
+            elif isinstance(node.content_object, BadgeNode):
+                nodes.append(BadgeNodeSerializer(node.content_object).data)
+        return nodes
