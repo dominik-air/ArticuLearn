@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from "@emotion/react";
 import useCustomTheme from "./components/Theme";
 import LearningPath, {
@@ -92,10 +93,12 @@ const learningPathData: (ActivityNode | BadgeNode)[] = [
 
 const App = () => {
   return (
+    <Router>
     <ThemeProvider theme={useCustomTheme}>
       <NavigationBar></NavigationBar>
       <LearningPath nodes={learningPathData} />
     </ThemeProvider>
+    </Router>
   );
 };
 

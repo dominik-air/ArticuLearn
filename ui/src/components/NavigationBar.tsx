@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -37,7 +38,7 @@ const NavigationBar: React.FC = () => {
       <List>
         {["Learning Path", "Badges"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton component={Link} to={index === 0 ? "/learning-path" : "/badges"}>
               <ListItemIcon>
                 {index === 0 ? (
                   <RouteIcon sx={{ fontSize: 40 }} />
@@ -54,7 +55,7 @@ const NavigationBar: React.FC = () => {
       <List>
         {["Articles", "Videos", "Quizzes", "Exercises"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton>
+            <ListItemButton component={Link} to={`/${text.toLowerCase()}`}>
               <ListItemIcon>
                 <ActivityIcon type={ActivityOrder[index]} />
               </ListItemIcon>
