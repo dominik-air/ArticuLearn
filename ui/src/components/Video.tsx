@@ -13,7 +13,7 @@ const Video: React.FC<VideoProps> = ({ videoId, title, description }) => {
   const videoSrc = `https://www.youtube-nocookie.com/embed/${videoId}?si=PtGLoHTljGH5rrz0`;
 
   return (
-    <Card sx={{ maxWidth: 600, margin: "auto" }}>
+    <Card sx={{ maxWidth: 600, margin: "auto", marginBottom: "20px" }}>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {title}
