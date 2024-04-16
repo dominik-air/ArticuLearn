@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import useCustomTheme from "./components/Theme";
 import LearningPath, {
@@ -9,6 +9,7 @@ import LearningPath, {
 } from "./components/LearningPath";
 import { ActivityType } from "./components/ActivityCard";
 import NavigationBar from "./components/NavigationBar";
+import VideosPage from "./components/VideosPage";
 
 const learningPathData: (ActivityNode | BadgeNode)[] = [
   {
@@ -94,10 +95,13 @@ const learningPathData: (ActivityNode | BadgeNode)[] = [
 const App = () => {
   return (
     <Router>
-    <ThemeProvider theme={useCustomTheme}>
-      <NavigationBar></NavigationBar>
-      <LearningPath nodes={learningPathData} />
-    </ThemeProvider>
+      <ThemeProvider theme={useCustomTheme}>
+        <NavigationBar></NavigationBar>
+        <Routes>
+          <Route path="/" element={<LearningPath nodes={learningPathData} />} />
+          <Route path="/videos" element={<VideosPage />} />
+        </Routes>
+      </ThemeProvider>
     </Router>
   );
 };

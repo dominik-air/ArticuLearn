@@ -38,7 +38,7 @@ const NavigationBar: React.FC = () => {
       <List>
         {["Learning Path", "Badges"].map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton component={Link} to={index === 0 ? "/learning-path" : "/badges"}>
+            <ListItemButton component={Link} to={index === 0 ? "/" : "/badges"}>
               <ListItemIcon>
                 {index === 0 ? (
                   <RouteIcon sx={{ fontSize: 40 }} />
