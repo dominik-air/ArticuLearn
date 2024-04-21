@@ -35,6 +35,16 @@ class QuizAnswer(QuizAnswerBase):
 
 
 class QuizBase(BaseModel):
-    id: int
     question: str
+
+
+class QuizCreate(QuizBase):
+    answers: list[QuizAnswerCreate]
+
+
+class Quiz(QuizBase):
+    id: int
     answers: list[QuizAnswer]
+
+    class Config:
+        orm_mode = True
