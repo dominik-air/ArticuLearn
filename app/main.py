@@ -58,3 +58,8 @@ app.add_middleware(
 @app.get("/api/v1/videos/", response_model=list[schemas.Video])
 async def read_videos(db: AsyncSession = Depends(get_db)):
     return await crud.get_videos(db)
+
+
+@app.get("/api/v1/quizzes/", response_model=list[schemas.Quiz])
+async def read_quizzes(db: AsyncSession = Depends(get_db)):
+    return await crud.get_quizzes(db)

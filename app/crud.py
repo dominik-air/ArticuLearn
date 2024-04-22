@@ -32,7 +32,7 @@ async def create_video(db: AsyncSession, video: schemas.VideoCreate):
         return existing_video
 
 
-async def get_quizes(db: AsyncSession) -> list[models.Quiz]:
+async def get_quizzes(db: AsyncSession) -> list[models.Quiz]:
     async with db:
         result = await db.execute((select(models.Quiz)))
         return result.scalars().all()
