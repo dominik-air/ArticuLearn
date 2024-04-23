@@ -13,35 +13,61 @@ async def get_db():
         yield db
 
 
-@asynccontextmanager
-async def populate_db(app: FastAPI):
+async def create_example_videos() -> None:
 
-    await create_tables(async_engine)
+    videos = [
+        schemas.VideoCreate(
+            id="dQw4w9WgXcQ",
+            title="Example Video 1",
+            description="This is a sample video description.",
+        ),
+        schemas.VideoCreate(
+            id="4uLs4Ow6UF0",
+            title="Example Video 2",
+            description="This is a sample video description.",
+        ),
+        schemas.VideoCreate(
+            id="8CwB4T1nkaM",
+            title="Example Video 3",
+            description="This is a sample video description.",
+        ),
+    ]
 
     async with AsyncSessionLocal() as db:
-        videos = [
-            schemas.VideoCreate(
-                id="dQw4w9WgXcQ",
-                title="Example Video 1",
-                description="This is a sample video description.",
-            ),
-            schemas.VideoCreate(
-                id="4uLs4Ow6UF0",
-                title="Example Video 2",
-                description="This is a sample video description.",
-            ),
-            schemas.VideoCreate(
-                id="8CwB4T1nkaM",
-                title="Example Video 3",
-                description="This is a sample video description.",
-            ),
-        ]
-
         for video in videos:
             await crud.create_video(db, video)
             print(f"Video: {video=} created!")
         await db.commit()
-        yield
+
+
+async def create_example_quizzes() -> None:
+    quizzes = [
+        schemas.QuizCreate(
+            question="Who was in Paris?",
+            answers=[
+                schemas.QuizAnswerCreate(text="Friends", is_correct=False),
+                schemas.QuizAnswerCreate(text="Homies", is_correct=True),
+                schemas.QuizAnswerCreate(text="Butterflies", is_correct=False),
+                schemas.QuizAnswerCreate(text="Brothers", is_correct=False),
+            ],
+        )
+    ]
+
+    async with AsyncSessionLocal() as db:
+        for quiz in quizzes:
+            await crud.create_quiz(db, quiz)
+            print(f"Quiz: {quiz=} created!")
+        await db.commit()
+
+
+@asynccontextmanager
+async def populate_db(app: FastAPI):
+    await create_tables(async_engine)
+
+    await create_example_videos()
+    await create_example_quizzes()
+
+    yield
 
 
 app = FastAPI(lifespan=populate_db)

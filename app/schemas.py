@@ -20,7 +20,6 @@ class Video(VideoBase):
 class QuizAnswerBase(BaseModel):
     text: str
     is_correct: bool
-    quiz_id: int
 
 
 class QuizAnswerCreate(QuizAnswerBase):
@@ -29,6 +28,7 @@ class QuizAnswerCreate(QuizAnswerBase):
 
 class QuizAnswer(QuizAnswerBase):
     id: int
+    quiz_id: int
 
     class Config:
         orm_mode = True
