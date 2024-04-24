@@ -16,7 +16,7 @@ class Quiz(Base):
     __tablename__ = "quizes"
 
     id = Column(Integer, primary_key=True, unique=True)
-    question = Column(String)
+    question = Column(String, unique=True)
 
     answers = relationship("QuizAnswer", back_populates="quiz", lazy="subquery")
 

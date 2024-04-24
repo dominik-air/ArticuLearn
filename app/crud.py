@@ -21,15 +21,15 @@ async def create_video(db: AsyncSession, video: schemas.VideoCreate):
         except NoResultFound:
             existing_video = None
 
-        if existing_video is None:
-            new_video = models.Video(
-                id=video.id, title=video.title, description=video.description
-            )
-            db.add(new_video)
-            await db.commit()
-            return new_video
+        if existing_video is not None:
+            return existing_video
 
-        return existing_video
+        new_video = models.Video(
+            id=video.id, title=video.title, description=video.description
+        )
+        db.add(new_video)
+        await db.commit()
+        return new_video
 
 
 async def get_quizzes(db: AsyncSession) -> list[models.Quiz]:
@@ -40,6 +40,17 @@ async def get_quizzes(db: AsyncSession) -> list[models.Quiz]:
 
 async def create_quiz(db: AsyncSession, quiz: schemas.QuizCreate):
     async with db:
+
+        stmt = select(models.Quiz).where(models.Quiz.question == quiz.question)
+        result = await db.execute(stmt)
+        try:
+            existing_quiz = result.scalars().one()
+        except NoResultFound:
+            existing_quiz = None
+
+        if existing_quiz is not None:
+            return existing_quiz
+
         new_quiz = models.Quiz(question=quiz.question)
         db.add(new_quiz)
         await db.flush()
