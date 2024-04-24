@@ -4,7 +4,6 @@
 The goal is to build a web application aimed towards people struggling with expressing themselves in a clear and concise way.
 Ideally, the learning process should be as interactive as possible, since there's already a lot of resources on-line on the topic.
 The recent development of smaller, yet functional, LLMs seem to be promising enough to give it a try as the main driver of the practice sessions.
-There's also an option to stick to the Gemini Pro API's free tier if anything else fails.
 
 ## Project scope (features)
 
