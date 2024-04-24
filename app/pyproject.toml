@@ -11,6 +11,8 @@ fastapi = "^0.110.1"
 sqlalchemy = "^2.0.29"
 uvicorn = "^0.29.0"
 aiosqlite = "^0.20.0"
+pip = "^24.0"
+greenlet = "^3.0.3"
 
 
 [tool.poetry.group.dev.dependencies]

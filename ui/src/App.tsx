@@ -11,6 +11,7 @@ import { ActivityType } from "./components/ActivityCard";
 import NavigationBar from "./components/NavigationBar";
 import VideosPage from "./components/VideosPage";
 import BadgesPage from "./components/BadgesPage";
+import QuizzesPage from "./components/QuizzesPage";
 
 const learningPathData: (ActivityNode | BadgeNode)[] = [
   {
@@ -101,6 +102,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<LearningPath nodes={learningPathData} />} />
           <Route path="/videos" element={<VideosPage />} />
+          <Route path="/quizzes" element={<QuizzesPage />} />
           <Route path="/badges" element={<BadgesPage />} />
         </Routes>
       </ThemeProvider>

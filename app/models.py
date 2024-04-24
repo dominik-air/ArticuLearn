@@ -18,7 +18,7 @@ class Quiz(Base):
     id = Column(Integer, primary_key=True, unique=True)
     question = Column(String)
 
-    answers = relationship("QuizAnswer", back_populates="quiz")
+    answers = relationship("QuizAnswer", back_populates="quiz", lazy="subquery")
 
 
 class QuizAnswer(Base):
@@ -29,4 +29,4 @@ class QuizAnswer(Base):
     is_correct = Column(Boolean, default=False)
     quiz_id = Column(Integer, ForeignKey("quizes.id"))
 
-    quiz = relationship("Quiz", back_populates="answers")
+    quiz = relationship("Quiz", back_populates="answers", lazy="subquery")
