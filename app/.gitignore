@@ -2,4 +2,4 @@ __pycache__
 
 *.db
 
-openai_api_key
+.env

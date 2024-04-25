@@ -1,12 +1,11 @@
+from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-# TODO: export OPENAI_API_KEY="..."
-with open("openai_api_key") as f:
-    API_KEY = f.read().strip()
+load_dotenv()
 
-llm = ChatOpenAI(api_key=API_KEY)
+llm = ChatOpenAI()
 
 
 prompt = ChatPromptTemplate.from_messages(
