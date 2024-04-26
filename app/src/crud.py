@@ -1,9 +1,8 @@
+from sqlalchemy.exc import NoResultFound
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from sqlalchemy.exc import NoResultFound
 
-from . import models
-from . import schemas
+from . import models, schemas
 
 
 async def get_videos(db: AsyncSession) -> list[models.Video]:
@@ -24,9 +23,7 @@ async def create_video(db: AsyncSession, video: schemas.VideoCreate):
         if existing_video is not None:
             return existing_video
 
-        new_video = models.Video(
-            id=video.id, title=video.title, description=video.description
-        )
+        new_video = models.Video(id=video.id, title=video.title, description=video.description)
         db.add(new_video)
         await db.commit()
         return new_video

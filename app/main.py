@@ -1,11 +1,12 @@
 from contextlib import asynccontextmanager
+
 from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession
 
 import src.crud as crud
 import src.schemas as schemas
-from src.database import async_engine, AsyncSessionLocal, create_tables
+from src.database import AsyncSessionLocal, async_engine, create_tables
 
 
 async def get_db():
