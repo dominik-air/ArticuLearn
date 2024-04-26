@@ -2,8 +2,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy.exc import NoResultFound
 
-import models
-import schemas
+from . import models
+from . import schemas
 
 
 async def get_videos(db: AsyncSession) -> list[models.Video]:

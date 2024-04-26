@@ -3,9 +3,9 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.ext.asyncio import AsyncSession
 
-import crud
-import schemas
-from database import async_engine, AsyncSessionLocal, create_tables
+import src.crud as crud
+import src.schemas as schemas
+from src.database import async_engine, AsyncSessionLocal, create_tables
 
 
 async def get_db():
