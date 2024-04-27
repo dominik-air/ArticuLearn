@@ -1,8 +1,9 @@
 import difflib
 
 from dotenv import load_dotenv
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import PydanticOutputParser, StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
+from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_openai import ChatOpenAI
 
 load_dotenv()
@@ -36,7 +37,7 @@ def compare_summaries(original: str, improved: str) -> dict[str, list[str]]:
 def generate_story(topic: str) -> str:
     llm = ChatOpenAI()
 
-    prompt = ChatPromptTemplate.from_template("tell me a short story about {topic}")
+    prompt = ChatPromptTemplate.from_template("tell me a short story about {topic}. it should be around 5 sentences.")
 
     output_parser = StrOutputParser()
 
@@ -45,26 +46,30 @@ def generate_story(topic: str) -> str:
     return chain.invoke({"topic": topic})
 
 
-def give_feedback(user_sentence: str, original_story: str) -> str:
-    llm = ChatOpenAI()
+class Feedback(BaseModel):
+    improved_summary: str = Field(description="expert's summary for the story")
+    improvement_details: str = Field(description="notes on what to improve in the user's summary")
 
-    prompt = ChatPromptTemplate.from_messages(
-        [
-            (
-                "system",
-                "You are an expert on expressing yourself clearly and concisely. \
+
+def give_feedback(user_sentence: str, original_story: str) -> Feedback:
+    llm = ChatOpenAI(temperature=0)
+
+    output_parser = PydanticOutputParser(pydantic_object=Feedback)
+
+    prompt = PromptTemplate(
+        template="You are an expert on expressing yourself clearly and concisely. \
                 The user was given the following story to summarize in one sentence {story}. \
-                Correct his summary and point out what to improve.",
-            ),
-            ("user", "{input}"),
-        ]
+                Correct his summary and point out what to improve. \
+                \n{format_instructions}\n The user's summary: {summary}\n",
+        input_variables=["story", "summary"],
+        partial_variables={"format_instructions": output_parser.get_format_instructions()},
     )
 
-    output_parser = StrOutputParser()
+    print(output_parser.get_format_instructions())
 
     chain = prompt | llm | output_parser
 
-    return chain.invoke({"input": user_sentence, "story": original_story})
+    return chain.invoke({"summary": user_sentence, "story": original_story})
 
 
 def run_workflow() -> None:
@@ -78,9 +83,10 @@ def run_workflow() -> None:
     feedback = give_feedback(summary, story)
     print("-" * 40)
     print("Improved Summary and Feedback:")
-    print(feedback)
+    print(feedback.improved_summary)
+    print(feedback.improvement_details)
     print("-" * 40)
-    result = compare_summaries(summary, feedback)
+    result = compare_summaries(summary, feedback.improved_summary)
     print("Comparison Results:")
     print("Added Words:", result["added"])
     print("Removed Words:", result["removed"])
