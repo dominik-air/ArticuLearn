@@ -1,5 +1,3 @@
-import difflib
-
 from dotenv import load_dotenv
 from langchain_core.output_parsers import PydanticOutputParser, StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate, PromptTemplate
@@ -7,31 +5,6 @@ from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_openai import ChatOpenAI
 
 load_dotenv()
-
-
-def compare_summaries(original: str, improved: str) -> dict[str, list[str]]:
-    original_words = original.split()
-    improved_words = improved.split()
-
-    s = difflib.SequenceMatcher(None, original_words, improved_words)
-    added = []
-    removed = []
-    changed = []
-
-    for tag, i1, i2, j1, j2 in s.get_opcodes():
-        if tag == "insert":
-            added.extend(improved_words[j1:j2])
-        elif tag == "delete":
-            removed.extend(original_words[i1:i2])
-        elif tag == "replace":
-            original_changed = original_words[i1:i2]
-            improved_changed = improved_words[j1:j2]
-            max_len = max(len(original_changed), len(improved_changed))
-            original_changed.extend([""] * (max_len - len(original_changed)))
-            improved_changed.extend([""] * (max_len - len(improved_changed)))
-            changed.extend(zip(original_changed, improved_changed))
-
-    return {"added": added, "removed": removed, "changed": changed}
 
 
 def generate_story(topic: str) -> str:
@@ -58,18 +31,52 @@ def give_feedback(user_sentence: str, original_story: str) -> Feedback:
 
     prompt = PromptTemplate(
         template="You are an expert on expressing yourself clearly and concisely. \
-                The user was given the following story to summarize in one sentence {story}. \
-                Correct his summary and point out what to improve. \
-                \n{format_instructions}\n The user's summary: {summary}\n",
+The user was given the following story to summarize in one sentence {story}. \
+Correct his summary and point out what to improve. Try to build upon his summary. \
+\n{format_instructions}\n The user's summary: {summary}\n",
         input_variables=["story", "summary"],
         partial_variables={"format_instructions": output_parser.get_format_instructions()},
     )
 
-    print(output_parser.get_format_instructions())
-
     chain = prompt | llm | output_parser
 
     return chain.invoke({"summary": user_sentence, "story": original_story})
+
+
+class Changes(BaseModel):
+    added: dict[int, str] = Field(
+        description="A dictionary. It maps indices to words that were added to the summary. \
+Each index corresponds to where a word was added."
+    )
+    removed: dict[int, str] = Field(
+        description="A dictionary. It maps indices to words that were removed from the summary. \
+Each index corresponds to where a word was removed."
+    )
+    substituted: dict[int, str] = Field(
+        description="A dictionary. It maps indices to new words. \
+The value is the new word that replaced the original word."
+    )
+
+
+def compare_summaries(user_summary: str, expert_summary: str) -> Changes:
+    llm = ChatOpenAI(temperature=0.1, model="gpt-4")
+
+    output_parser = PydanticOutputParser(pydantic_object=Changes)
+
+    prompt = PromptTemplate(
+        template="The user was given a story to summarize in one sentence. \
+\n The user's summary: {user_summary}\n \
+The expert had to correct his summary. \
+\n The expert's summary: {expert_summary}\n \
+Compare those two summaries and output added, removed, and substituted words. \
+\n{format_instructions}\n ",
+        input_variables=["user_summary", "expert_summary"],
+        partial_variables={"format_instructions": output_parser.get_format_instructions()},
+    )
+
+    chain = prompt | llm | output_parser
+
+    return chain.invoke({"user_summary": user_summary, "expert_summary": expert_summary})
 
 
 def run_workflow() -> None:
@@ -86,11 +93,11 @@ def run_workflow() -> None:
     print(feedback.improved_summary)
     print(feedback.improvement_details)
     print("-" * 40)
-    result = compare_summaries(summary, feedback.improved_summary)
+    changes = compare_summaries(summary, feedback.improved_summary)
     print("Comparison Results:")
-    print("Added Words:", result["added"])
-    print("Removed Words:", result["removed"])
-    print("Changed Words:", result["changed"])
+    print("Added Words:", changes.added)
+    print("Removed Words:", changes.removed)
+    print("Changed Words:", changes.substituted)
     print("-" * 40)
 
 
