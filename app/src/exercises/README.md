@@ -1,6 +1,9 @@
 ## 1. Topic Selection
 Start Simple: Begin with familiar topics where you can easily articulate your thoughts. Examples include hobbies, daily routines, or favorite books/movies.
 Branch Out: Gradually move to more complex or abstract topics such as technology trends, philosophical questions, or current events.
+
+It could be a good idea to moderate the vocabulary used in the stories to not overwhelm the user.
+
 ## 2. Structuring Your Practice
 ### Warm-Up Exercise: The One-Sentence Challenge
 
