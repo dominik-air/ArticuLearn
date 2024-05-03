@@ -3,7 +3,7 @@ Start Simple: Begin with familiar topics where you can easily articulate your th
 Branch Out: Gradually move to more complex or abstract topics such as technology trends, philosophical questions, or current events.
 
 It could be a good idea to moderate the vocabulary used in the stories to not overwhelm the user.
-
+The LLM's summaries should also be moderated in some way. They tend to provide summaries most people would never provide (more noise than contex)
 ## 2. Structuring Your Practice
 ### Warm-Up Exercise: The One-Sentence Challenge
 
