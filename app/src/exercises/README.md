@@ -25,3 +25,5 @@ The LLM's summaries should also be moderated in some way. They tend to provide s
 Highlight most important parts of the story. - seems to be easy enough for an LLM
 
 Show added, removed, and substituted parts of the summary. - this is more challenging
+
+Some way of providing tips would be great
