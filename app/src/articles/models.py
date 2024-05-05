@@ -30,9 +30,16 @@ class ArticleContent(Base):
     id = Column(Integer, primary_key=True)
     text = Column(String, nullable=True)
     image_url = Column(String, nullable=True)
-    # table = ...
+    table_id = Column(Integer, ForeignKey("article_tables.id"), nullable=True)
 
     article = relationship("Article", back_populates="contents", lazy="subquery")
+    table = relationship("ArticleTable", back_populates="content", uselist=False)
 
 
-# TODO: add Table
+class ArticleTable(Base):
+    __tablename__ = "article_tables"
+    id = Column(Integer, primary_key=True)
+    headers = Column(String)  # CSV
+    values = Column(String)  # CSV
+
+    content = relationship("ArticleContent", back_populates="table", uselist=False)

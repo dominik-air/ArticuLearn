@@ -23,7 +23,9 @@ async def create_video(db: AsyncSession, video: schemas.VideoCreate):
         if existing_video is not None:
             return existing_video
 
-        new_video = models.Video(id=video.id, title=video.title, description=video.description)
+        new_video = models.Video(
+            id=video.id, title=video.title, description=video.description
+        )
         db.add(new_video)
         await db.commit()
         return new_video

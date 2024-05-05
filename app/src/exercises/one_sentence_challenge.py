@@ -10,7 +10,9 @@ load_dotenv()
 def generate_story(topic: str) -> str:
     llm = ChatOpenAI()
 
-    prompt = ChatPromptTemplate.from_template("tell me a short story about {topic}. it should be around 5 sentences.")
+    prompt = ChatPromptTemplate.from_template(
+        "tell me a short story about {topic}. it should be around 5 sentences."
+    )
 
     output_parser = StrOutputParser()
 
@@ -21,7 +23,9 @@ def generate_story(topic: str) -> str:
 
 class Feedback(BaseModel):
     improved_summary: str = Field(description="expert's summary for the story")
-    improvement_details: str = Field(description="notes on what to improve in the user's summary")
+    improvement_details: str = Field(
+        description="notes on what to improve in the user's summary"
+    )
 
 
 def give_feedback(user_sentence: str, original_story: str) -> Feedback:
@@ -35,7 +39,9 @@ The user was given the following story to summarize in one sentence {story}. \
 Correct his summary and point out what to improve. Try to build upon his summary. \
 \n{format_instructions}\n The user's summary: {summary}\n",
         input_variables=["story", "summary"],
-        partial_variables={"format_instructions": output_parser.get_format_instructions()},
+        partial_variables={
+            "format_instructions": output_parser.get_format_instructions()
+        },
     )
 
     chain = prompt | llm | output_parser
@@ -71,12 +77,16 @@ The expert had to correct his summary. \
 Compare those two summaries and output added, removed, and substituted words. \
 \n{format_instructions}\n ",
         input_variables=["user_summary", "expert_summary"],
-        partial_variables={"format_instructions": output_parser.get_format_instructions()},
+        partial_variables={
+            "format_instructions": output_parser.get_format_instructions()
+        },
     )
 
     chain = prompt | llm | output_parser
 
-    return chain.invoke({"user_summary": user_summary, "expert_summary": expert_summary})
+    return chain.invoke(
+        {"user_summary": user_summary, "expert_summary": expert_summary}
+    )
 
 
 def run_workflow() -> None:
