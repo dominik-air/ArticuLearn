@@ -39,7 +39,7 @@ class ArticleContent(Base):
 class ArticleTable(Base):
     __tablename__ = "article_tables"
     id = Column(Integer, primary_key=True)
-    headers = Column(String)  # CSV
-    values = Column(String)  # CSV
+    headers = Column(String)  # CSV format
+    values = Column(String)  # CSV format
 
     content = relationship("ArticleContent", back_populates="table", uselist=False)
