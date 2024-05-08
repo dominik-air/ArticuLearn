@@ -15,6 +15,7 @@ The recent development of smaller, yet functional, LLMs seem to be promising eno
 ## Resources:
 - [RAG](https://chariotsolutions.com/blog/post/from-rags-to-riches-adding-context-to-your-llm/)
 - [RAG for LLMs](https://www.promptingguide.ai/research/rag)
+- [pgvector](https://github.com/pgvector/pgvector)
 
 ## Acknowledgement
 Project implemented as part of the [100commitow](https://100commitow.pl) competition.
