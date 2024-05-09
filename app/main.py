@@ -60,6 +60,47 @@ async def create_example_quizzes() -> None:
             print(f"Quiz: {quiz=} created!")
         await db.commit()
 
+async def create_example_articles() -> None:
+    articles = [
+        schemas.ArticleWithRelations(
+            title="Understanding AI",
+            tags=[
+                schemas.ArticleTagCreate(value="Technology"),
+                schemas.ArticleTagCreate(value="AI")
+            ],
+            contents=[
+                schemas.ArticleContentCreate(text="A comprehensive guide to Artificial Intelligence.", image_url=None)
+            ]
+        ),
+        schemas.ArticleWithRelations(
+            title="Latest Trends in Machine Learning",
+            tags=[
+                schemas.ArticleTagCreate(value="Machine Learning"),
+                schemas.ArticleTagCreate(value="Data Science")
+            ],
+            contents=[
+                schemas.ArticleContentCreate(text="Exploring the latest breakthroughs in ML.", image_url="http://example.com/ml.png"),
+                schemas.ArticleContentCreate(text=None, image_url="http://example.com/data.png")
+            ]
+        ),
+        schemas.ArticleWithRelations(
+            title="History of Computing",
+            tags=[
+                schemas.ArticleTagCreate(value="Computing"),
+                schemas.ArticleTagCreate(value="History")
+            ],
+            contents=[
+                schemas.ArticleContentCreate(text="From the abacus to quantum computing.", image_url=None)
+            ]
+        )
+    ]
+
+    async with AsyncSessionLocal() as db:
+        for article in articles:
+            created_article = await crud.create_article(db, article)
+            print(f"Article created! Title: {created_article.title}")
+        await db.commit()
+
 
 @asynccontextmanager
 async def populate_db(app: FastAPI):
@@ -67,6 +108,7 @@ async def populate_db(app: FastAPI):
 
     await create_example_videos()
     await create_example_quizzes()
+    await create_example_articles()
 
     yield
 
@@ -90,3 +132,7 @@ async def read_videos(db: AsyncSession = Depends(get_db)):
 @app.get("/api/v1/quizzes/", response_model=list[schemas.Quiz])
 async def read_quizzes(db: AsyncSession = Depends(get_db)):
     return await crud.get_quizzes(db)
+
+@app.get("/api/v1/articles/", response_model=list[schemas.Article])
+async def read_articles(db: AsyncSession = Depends(get_db)):
+    return await crud.get_articles(db)

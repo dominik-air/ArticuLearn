@@ -23,7 +23,7 @@ class ArticleContentBase(BaseModel):
 
 
 class ArticleContentCreate(ArticleContentBase):
-    table_id: int | None
+    table_id: int | None = None
 
 
 class ArticleContent(ArticleContentBase):

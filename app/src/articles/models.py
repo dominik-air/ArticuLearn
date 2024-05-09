@@ -31,6 +31,7 @@ class ArticleContent(Base):
     text = Column(String, nullable=True)
     image_url = Column(String, nullable=True)
     table_id = Column(Integer, ForeignKey("article_tables.id"), nullable=True)
+    article_id = Column(Integer, ForeignKey('articles.id'))
 
     article = relationship("Article", back_populates="contents", lazy="subquery")
     table = relationship("ArticleTable", back_populates="content", uselist=False)
