@@ -100,6 +100,31 @@ async def create_example_articles() -> None:
             created_article = await crud.create_article(db, article)
             print(f"Article created! Title: {created_article.title}")
         await db.commit()
+    
+
+async def create_example_badges() -> None:
+
+    badges = [
+        schemas.BadgeCreate(
+            achievement="Completed the first section!",
+            image_url="https://assets-global.website-files.com/5f688092bdf2ee0b6b010f87/64a59700883a82beb1983664_Accredible_DigitalCredentialsBlog_02-DigitalBadge1.png"
+        ),
+        schemas.BadgeCreate(
+            achievement="Completed the second section!",
+            image_url="https://assets-global.website-files.com/5f688092bdf2ee0b6b010f87/64a59700883a82beb1983664_Accredible_DigitalCredentialsBlog_02-DigitalBadge1.png"
+        ),
+        schemas.BadgeCreate(
+            achievement="Completed the third section!",
+            image_url="https://assets-global.website-files.com/5f688092bdf2ee0b6b010f87/64a59700883a82beb1983664_Accredible_DigitalCredentialsBlog_02-DigitalBadge1.png"
+        )
+    ]
+
+    async with AsyncSessionLocal() as db:
+        for badge in badges:
+            await crud.create_badge(db, badge)
+            print(f"Badge: {badge=} created!")
+        await db.commit()
+
 
 
 @asynccontextmanager
@@ -109,6 +134,7 @@ async def populate_db(app: FastAPI):
     await create_example_videos()
     await create_example_quizzes()
     await create_example_articles()
+    await create_example_badges()
 
     yield
 
@@ -133,6 +159,12 @@ async def read_videos(db: AsyncSession = Depends(get_db)):
 async def read_quizzes(db: AsyncSession = Depends(get_db)):
     return await crud.get_quizzes(db)
 
+
 @app.get("/api/v1/articles/", response_model=list[schemas.Article])
 async def read_articles(db: AsyncSession = Depends(get_db)):
     return await crud.get_articles(db)
+
+
+@app.get("/api/v1/badges/", response_model=list[schemas.Badge])
+async def read_badges(db: AsyncSession = Depends(get_db)):
+    return await crud.get_badges(db)

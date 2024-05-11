@@ -2,3 +2,4 @@
 from .articles.models import *
 from .quizzes.models import *
 from .videos.models import *
+from .badges.models import *
